@@ -1,6 +1,7 @@
 # cjy-todoList 통합 구현 계획
 
 ## 프로젝트 개요
+
 - **프로젝트명**: cjy-todoList
 - **기술 스택**:
   - Database: PostgreSQL 15+ (Supabase)
@@ -13,11 +14,11 @@
 
 ## 전체 일정 개요
 
-| 구분 | 예상 시간 | 작업 기간 |
-|------|----------|----------|
-| Database | 28시간 | 3.5일 |
-| Backend | 70-72시간 | 9일 |
-| Frontend | 80-100시간 | 10-12.5일 |
+| 구분     | 예상 시간       | 작업 기간   |
+| -------- | --------------- | ----------- |
+| Database | 28시간          | 3.5일       |
+| Backend  | 70-72시간       | 9일         |
+| Frontend | 80-100시간      | 10-12.5일   |
 | **전체** | **178-200시간** | **22-25일** |
 
 ---
@@ -25,154 +26,172 @@
 ## Phase 1: 데이터베이스 구축 (28시간)
 
 ### DB-1: 개발 환경 설정
+
 **예상 시간**: 2시간
 **우선순위**: High
 **의존성**: 없음
 
 #### 완료 조건
-- [ ] Supabase 프로젝트 생성 완료
-- [ ] Supabase 연결 정보 확인 (host, port, database name, user, password)
-- [ ] PostgreSQL 클라이언트 도구 설치 (pgAdmin, DBeaver 등)
-- [ ] 로컬 개발 환경에서 Supabase 데이터베이스 연결 테스트 성공
-- [ ] `.env` 파일에 데이터베이스 연결 정보 저장
-- [ ] `.gitignore`에 `.env` 파일 추가 확인
+
+- [x] Supabase 프로젝트 생성 완료
+- [x] Supabase 연결 정보 확인 (host, port, database name, user, password)
+- [x] PostgreSQL 클라이언트 도구 설치 (pgAdmin, DBeaver 등)
+- [x] 로컬 개발 환경에서 Supabase 데이터베이스 연결 테스트 성공
+- [x] `.env` 파일에 데이터베이스 연결 정보 저장
+- [x] `.gitignore`에 `.env` 파일 추가 확인
 
 ---
 
 ### DB-2: 스키마 파일 검증 및 준비
+
 **예상 시간**: 1시간
 **우선순위**: High
 **의존성**: DB-1
 
 #### 완료 조건
-- [ ] `database/schema.sql` 파일 구문 검증 (PostgreSQL 문법 체크)
-- [ ] UUID 확장 모듈 사용 가능 여부 확인
-- [ ] 모든 제약 조건(CONSTRAINT) 정의 검토
-- [ ] 트리거 함수 동작 검증
-- [ ] 뷰(View) 정의 검토
-- [ ] 초기 데이터(국경일) 검증
+
+- [x] `database/schema.sql` 파일 구문 검증 (PostgreSQL 문법 체크)
+- [x] UUID 확장 모듈 사용 가능 여부 확인
+- [x] 모든 제약 조건(CONSTRAINT) 정의 검토
+- [x] 트리거 함수 동작 검증
+- [x] 뷰(View) 정의 검토
+- [x] 초기 데이터(국경일) 검증
 
 ---
 
 ### DB-3: 데이터베이스 및 테이블 생성
+
 **예상 시간**: 3시간
 **우선순위**: High
 **의존성**: DB-2
 
 #### 완료 조건
-- [ ] Supabase SQL Editor에서 `database/schema.sql` 실행
-- [ ] UUID 확장 모듈 활성화 확인
-- [ ] `users` 테이블 생성 확인
-- [ ] `todos` 테이블 생성 확인
-- [ ] 모든 제약 조건(PK, FK, UNIQUE, CHECK) 적용 확인
-- [ ] 외래 키 관계 정상 동작 확인
-- [ ] 테이블 코멘트 추가 확인
+
+- [x] Supabase SQL Editor에서 `database/schema.sql` 실행
+- [x] UUID 확장 모듈 활성화 확인
+- [x] `users` 테이블 생성 확인
+- [x] `todos` 테이블 생성 확인
+- [x] 모든 제약 조건(PK, FK, UNIQUE, CHECK) 적용 확인
+- [x] 외래 키 관계 정상 동작 확인
+- [x] 테이블 코멘트 추가 확인
 
 ---
 
 ### DB-4: 인덱스 생성 및 최적화
+
 **예상 시간**: 2시간
 **우선순위**: High
 **의존성**: DB-3
 
 #### 완료 조건
-- [ ] 단일 컬럼 인덱스 생성 확인 (users: username, email / todos: userId, isDeleted 등)
-- [ ] 복합 인덱스 생성 확인 (idx_todos_user_active, idx_todos_calendar 등)
-- [ ] 부분 인덱스(Partial Index) 생성 확인
-- [ ] 인덱스 사용 계획 분석 (EXPLAIN ANALYZE)
-- [ ] 쿼리 성능 테스트 (조회 쿼리 실행 시간 측정)
-- [ ] 필요 시 인덱스 추가 또는 조정
+
+- [x] 단일 컬럼 인덱스 생성 확인 (users: username, email / todos: userId, isDeleted 등)
+- [x] 복합 인덱스 생성 확인 (idx_todos_user_active, idx_todos_calendar 등)
+- [x] 부분 인덱스(Partial Index) 생성 확인
+- [x] 인덱스 사용 계획 분석 (EXPLAIN ANALYZE)
+- [x] 쿼리 성능 테스트 (조회 쿼리 실행 시간 측정)
+- [x] 필요 시 인덱스 추가 또는 조정
 
 ---
 
 ### DB-5: 트리거, 함수 및 뷰 생성
+
 **예상 시간**: 4시간
 **우선순위**: High
 **의존성**: DB-3
 
 #### 완료 조건
-- [ ] `update_updated_at_column()` 함수 생성 확인
-- [ ] `users` 테이블 트리거 생성 및 동작 테스트
-- [ ] `todos` 테이블 트리거 생성 및 동작 테스트
-- [ ] UPDATE 시 `updatedAt` 자동 갱신 확인
-- [ ] `get_user_todo_stats()` 함수 생성 확인
-- [ ] 통계 함수 동작 테스트 (샘플 데이터로 검증)
-- [ ] `v_active_todos` 뷰 생성 확인
-- [ ] `v_public_holidays` 뷰 생성 확인
-- [ ] `v_trash` 뷰 생성 확인
-- [ ] 각 뷰에서 데이터 조회 테스트
+
+- [x] `update_updated_at_column()` 함수 생성 확인
+- [x] `users` 테이블 트리거 생성 및 동작 테스트
+- [x] `todos` 테이블 트리거 생성 및 동작 테스트
+- [x] UPDATE 시 `updatedAt` 자동 갱신 확인
+- [x] `get_user_todo_stats()` 함수 생성 확인
+- [x] 통계 함수 동작 테스트 (샘플 데이터로 검증)
+- [x] `v_active_todos` 뷰 생성 확인
+- [x] `v_public_holidays` 뷰 생성 확인
+- [x] `v_trash` 뷰 생성 확인
+- [x] 각 뷰에서 데이터 조회 테스트
 
 ---
 
 ### DB-6: 초기 데이터 삽입 및 제약 조건 테스트
+
 **예상 시간**: 5시간
 **우선순위**: High
 **의존성**: DB-5
 
 #### 완료 조건
-- [ ] 2025년 한국 공휴일 데이터 삽입 확인
-- [ ] 삽입된 국경일 데이터 검증 (총 15개)
-- [ ] `isPublicHoliday = TRUE` 및 `userId IS NULL` 확인
-- [ ] **Users 테이블 제약 조건 테스트**
-  - [ ] 중복 username 삽입 시 에러 발생 확인
-  - [ ] 중복 email 삽입 시 에러 발생 확인
-  - [ ] 잘못된 email 형식 삽입 시 에러 발생 확인
-  - [ ] username 길이 제약 테스트
-- [ ] **Todos 테이블 제약 조건 테스트**
-  - [ ] startDate > dueDate 삽입 시 에러 발생 확인
-  - [ ] isDeleted=TRUE인데 deletedAt=NULL 삽입 시 에러 발생 확인
-  - [ ] isPublicHoliday=TRUE인데 userId가 NULL이 아닌 경우 에러 확인
-  - [ ] title 길이 제약 테스트 (1~200자)
-  - [ ] description 길이 제약 테스트 (최대 2000자)
-  - [ ] 존재하지 않는 userId 삽입 시 외래 키 에러 확인
-  - [ ] 사용자 삭제 시 연관 todos 자동 삭제(CASCADE) 확인
+
+- [x] 2025년 한국 공휴일 데이터 삽입 확인
+- [x] 삽입된 국경일 데이터 검증 (총 15개)
+- [x] `isPublicHoliday = TRUE` 및 `userId IS NULL` 확인
+- [x] **Users 테이블 제약 조건 테스트**
+  - [x] 중복 username 삽입 시 에러 발생 확인
+  - [x] 중복 email 삽입 시 에러 발생 확인
+  - [x] 잘못된 email 형식 삽입 시 에러 발생 확인
+  - [x] username 길이 제약 테스트
+- [x] **Todos 테이블 제약 조건 테스트**
+  - [x] startDate > dueDate 삽입 시 에러 발생 확인
+  - [x] isDeleted=TRUE인데 deletedAt=NULL 삽입 시 에러 발생 확인
+  - [x] isPublicHoliday=TRUE인데 userId가 NULL이 아닌 경우 에러 확인
+  - [x] title 길이 제약 테스트 (1~200자)
+  - [x] description 길이 제약 테스트 (최대 2000자)
+  - [x] 존재하지 않는 userId 삽입 시 외래 키 에러 확인
+  - [x] 사용자 삭제 시 연관 todos 자동 삭제(CASCADE) 확인
 
 ---
 
 ### DB-7: 통합 쿼리 테스트 및 성능 분석
+
 **예상 시간**: 5시간
 **우선순위**: High
 **의존성**: DB-6
 
 #### 완료 조건
-- [ ] 사용자별 할 일 조회 쿼리 테스트 (활성/삭제 구분)
-- [ ] 캘린더 조회 쿼리 테스트 (날짜별 할 일 및 국경일)
-- [ ] 휴지통 조회 쿼리 테스트
-- [ ] 국경일 조회 쿼리 테스트
-- [ ] 사용자 통계 조회 함수 테스트 (`get_user_todo_stats()`)
-- [ ] 각 쿼리 실행 계획 분석 (EXPLAIN ANALYZE)
-- [ ] 인덱스 사용 여부 확인
-- [ ] 쿼리 응답 시간 측정 및 최적화
-- [ ] 대량 데이터 삽입 후 성능 재측정 (1000+ todos)
+
+- [x] 사용자별 할 일 조회 쿼리 테스트 (활성/삭제 구분)
+- [x] 캘린더 조회 쿼리 테스트 (날짜별 할 일 및 국경일)
+- [x] 휴지통 조회 쿼리 테스트
+- [x] 국경일 조회 쿼리 테스트
+- [x] 사용자 통계 조회 함수 테스트 (`get_user_todo_stats()`)
+- [x] 각 쿼리 실행 계획 분석 (EXPLAIN ANALYZE)
+- [x] 인덱스 사용 여부 확인
+- [x] 쿼리 응답 시간 측정 및 최적화
+- [x] 대량 데이터 삽입 후 성능 재측정 (1000+ todos)
 
 ---
 
 ### DB-8: 문서화 및 마이그레이션 가이드 작성
+
 **예상 시간**: 6시간
 **우선순위**: Medium
 **의존성**: DB-7
 
 #### 완료 조건
-- [ ] 데이터베이스 설치 가이드 작성
-- [ ] 스키마 마이그레이션 절차 문서화
-- [ ] 주요 쿼리 예제 문서 작성
-- [ ] 인덱스 설계 근거 문서화
-- [ ] 제약 조건 및 비즈니스 규칙 설명
-- [ ] 백업 및 복원 절차 문서화
-- [ ] 성능 튜닝 가이드 작성
-- [ ] 트러블슈팅 가이드 작성
-- [ ] `database/README.md` 파일 작성
+
+- [x] 데이터베이스 설치 가이드 작성
+- [x] 스키마 마이그레이션 절차 문서화
+- [x] 주요 쿼리 예제 문서 작성
+- [x] 인덱스 설계 근거 문서화
+- [x] 제약 조건 및 비즈니스 규칙 설명
+- [x] 백업 및 복원 절차 문서화
+- [x] 성능 튜닝 가이드 작성
+- [x] 트러블슈팅 가이드 작성
+- [x] `database/README.md` 파일 작성
 
 ---
 
 ## Phase 2: 백엔드 구축 (70-72시간)
 
 ### BE-1: 프로젝트 초기화 및 의존성 설치
+
 **예상 시간**: 3시간
 **우선순위**: High
 **의존성**: DB-3
 
 #### 완료 조건
+
 - [ ] `backend/` 디렉토리 생성
 - [ ] `npm init` 실행 및 `package.json` 생성
 - [ ] 프로젝트 메타데이터 설정
@@ -187,11 +206,13 @@
 ---
 
 ### BE-2: 프로젝트 폴더 구조 및 환경 설정
+
 **예상 시간**: 3시간
 **우선순위**: High
 **의존성**: BE-1
 
 #### 완료 조건
+
 - [ ] 계층별 디렉토리 생성
   - [ ] `src/controllers/`, `src/services/`, `src/models/`
   - [ ] `src/middlewares/`, `src/routes/`, `src/utils/`
@@ -209,11 +230,13 @@
 ---
 
 ### BE-3: 데이터베이스 모델 레이어 구현
+
 **예상 시간**: 5시간
 **우선순위**: High
 **의존성**: BE-2
 
 #### 완료 조건
+
 - [ ] `src/models/db.js` 생성 (PostgreSQL Pool 초기화)
 - [ ] `src/models/BaseModel.js` 생성 (공통 CRUD 메서드)
 - [ ] **`src/models/UserModel.js` 생성**
@@ -231,11 +254,13 @@
 ---
 
 ### BE-4: 공통 미들웨어 및 유틸리티 구현
+
 **예상 시간**: 6시간
 **우선순위**: High
 **의존성**: BE-2
 
 #### 완료 조건
+
 - [ ] **미들웨어 생성**
   - [ ] `src/middlewares/errorHandler.js` (전역 에러 핸들러, 커스텀 에러 클래스)
   - [ ] `src/middlewares/authMiddleware.js` (JWT 토큰 검증)
@@ -251,11 +276,13 @@
 ---
 
 ### BE-5: Express 서버 기본 설정
+
 **예상 시간**: 2시간
 **우선순위**: High
 **의존성**: BE-4
 
 #### 완료 조건
+
 - [ ] `src/app.js` 생성 (Express 앱 설정)
   - [ ] 미들웨어 등록 (cors, helmet, express.json, express.urlencoded)
   - [ ] 라우터 등록
@@ -268,11 +295,13 @@
 ---
 
 ### BE-6: 회원가입 API 구현
+
 **예상 시간**: 5시간
 **우선순위**: High
 **의존성**: BE-3, BE-4
 
 #### 완료 조건
+
 - [ ] `src/validators/authValidator.js` 생성 (회원가입 입력 검증)
 - [ ] `src/services/AuthService.js` 생성
   - [ ] `signUp()` 메서드 (중복 확인, 비밀번호 해싱, 사용자 생성)
@@ -286,11 +315,13 @@
 ---
 
 ### BE-7: 로그인 및 토큰 관리 API 구현
+
 **예상 시간**: 8시간
 **우선순위**: High
 **의존성**: BE-6
 
 #### 완료 조건
+
 - [ ] **로그인 API**
   - [ ] `src/validators/authValidator.js` 업데이트 (로그인 입력 검증)
   - [ ] `AuthService.signIn()` 메서드 (사용자 인증, 토큰 생성/저장)
@@ -309,11 +340,13 @@
 ---
 
 ### BE-8: Todo CRUD API 구현
+
 **예상 시간**: 9시간
 **우선순위**: High
 **의존성**: BE-3, BE-4
 
 #### 완료 조건
+
 - [ ] `src/validators/todoValidator.js` 생성 (Todo 생성/수정 입력 검증)
 - [ ] `src/services/TodoService.js` 생성
   - [ ] `getTodosByUserId()`, `getTodoById()`
@@ -331,11 +364,13 @@
 ---
 
 ### BE-9: 휴지통 API 구현
+
 **예상 시간**: 4시간
 **우선순위**: Medium
 **의존성**: BE-8
 
 #### 완료 조건
+
 - [ ] `TodoService` 업데이트
   - [ ] `getTrashByUserId()`, `restoreTodo()`, `permanentlyDeleteTodo()`
 - [ ] `TodoController` 업데이트
@@ -349,11 +384,13 @@
 ---
 
 ### BE-10: 캘린더 및 국경일 API 구현
+
 **예상 시간**: 8시간
 **우선순위**: High
 **의존성**: BE-8
 
 #### 완료 조건
+
 - [ ] **캘린더 API**
   - [ ] `src/services/CalendarService.js` 생성
   - [ ] `getCalendarData()` 메서드 (사용자 할 일 + 국경일 병합)
@@ -371,11 +408,13 @@
 ---
 
 ### BE-11: 보안 강화 및 입력 검증
+
 **예상 시간**: 6시간
 **우선순위**: High
 **의존성**: BE-5
 
 #### 완료 조건
+
 - [ ] **Rate Limiting 설정**
   - [ ] 인증 API: 5 requests/15분
   - [ ] 일반 API: 100 requests/15분
@@ -393,11 +432,13 @@
 ---
 
 ### BE-12: 테스트 및 커버리지 확인
+
 **예상 시간**: 11시간
 **우선순위**: High
 **의존성**: BE-1~BE-11
 
 #### 완료 조건
+
 - [ ] **단위 테스트 완성**
   - [ ] 모든 Service 레이어 단위 테스트 작성
   - [ ] 모든 Model 레이어 단위 테스트 작성
@@ -416,11 +457,13 @@
 ---
 
 ### BE-13: Vercel 배포 및 문서화
+
 **예상 시간**: 5시간
 **우선순위**: High
 **의존성**: BE-12
 
 #### 완료 조건
+
 - [ ] `vercel.json` 설정 파일 생성
 - [ ] Vercel 프로젝트 생성 및 연결
 - [ ] 환경 변수 설정 (Vercel Dashboard)
@@ -442,11 +485,13 @@
 ## Phase 3: 프론트엔드 구축 (80-100시간)
 
 ### FE-1: React 프로젝트 초기화 및 의존성 설치
+
 **예상 시간**: 3시간
 **우선순위**: High
 **의존성**: 없음
 
 #### 완료 조건
+
 - [ ] `frontend/` 디렉토리 생성
 - [ ] Vite로 React 프로젝트 생성
 - [ ] `.gitignore`, `.env.example` 파일 확인
@@ -466,11 +511,13 @@
 ---
 
 ### FE-2: 프로젝트 폴더 구조 및 Axios 설정
+
 **예상 시간**: 3시간
 **우선순위**: High
 **의존성**: FE-1
 
 #### 완료 조건
+
 - [ ] 계층별 디렉토리 생성
   - [ ] `src/components/` (common, layout)
   - [ ] `src/pages/`, `src/hooks/`, `src/store/`
@@ -488,11 +535,13 @@
 ---
 
 ### FE-3: React Router 및 Zustand 스토어 설정
+
 **예상 시간**: 7시간
 **우선순위**: High
 **의존성**: FE-2
 
 #### 완료 조건
+
 - [ ] **React Router 설정**
   - [ ] `src/App.jsx` 업데이트 (BrowserRouter)
   - [ ] `src/routes/index.jsx` 생성 (라우트 정의)
@@ -509,11 +558,13 @@
 ---
 
 ### FE-4: 공통 컴포넌트 구현
+
 **예상 시간**: 8시간
 **우선순위**: High
 **의존성**: FE-1
 
 #### 완료 조건
+
 - [ ] `src/components/common/Button.jsx` 생성
   - [ ] variants: primary, secondary, danger, ghost
   - [ ] sizes: sm, md, lg
@@ -532,11 +583,13 @@
 ---
 
 ### FE-5: 레이아웃 컴포넌트 구현
+
 **예상 시간**: 4시간
 **우선순위**: Medium
 **의존성**: FE-3, FE-4
 
 #### 완료 조건
+
 - [ ] `src/components/layout/Header.jsx` 생성
   - [ ] 로고/타이틀
   - [ ] 네비게이션 메뉴 (Todos, Calendar, Trash, Profile)
@@ -549,11 +602,13 @@
 ---
 
 ### FE-6: 회원가입/로그인 페이지 구현
+
 **예상 시간**: 8시간
 **우선순위**: High
 **의존성**: FE-3, FE-4
 
 #### 완료 조건
+
 - [ ] **`src/pages/SignUpPage.jsx` 생성**
   - [ ] 회원가입 폼 (username, email, password, confirmPassword)
   - [ ] 입력 검증 (이메일 형식, 비밀번호 강도, 필수 필드)
@@ -572,11 +627,13 @@
 ---
 
 ### FE-7: 할 일 목록 (Todos) 페이지 구현
+
 **예상 시간**: 10시간
 **우선순위**: High
 **의존성**: FE-3, FE-4, FE-5
 
 #### 완료 조건
+
 - [ ] `src/services/todoApi.js` 생성
   - [ ] `getTodos()`, `createTodo()`, `updateTodo()`, `deleteTodo()`, `toggleComplete()`
 - [ ] **`src/pages/TodosPage.jsx` 생성**
@@ -598,11 +655,13 @@
 ---
 
 ### FE-8: 캘린더 페이지 구현
+
 **예상 시간**: 12시간
 **우선순위**: High
 **의존성**: FE-3, FE-4, FE-5
 
 #### 완료 조건
+
 - [ ] `src/services/calendarApi.js` 생성
   - [ ] `getCalendarData(startDate, endDate)`
 - [ ] **`src/pages/CalendarPage.jsx` 생성**
@@ -624,11 +683,13 @@
 ---
 
 ### FE-9: 휴지통 및 프로필 페이지 구현
+
 **예상 시간**: 11시간
 **우선순위**: Medium
 **의존성**: FE-3, FE-4, FE-5
 
 #### 완료 조건
+
 - [ ] **휴지통 페이지**
   - [ ] `src/services/trashApi.js` 생성 (getTrash, restoreTodo, permanentlyDelete)
   - [ ] `src/pages/TrashPage.jsx` 생성 (삭제된 할 일 목록 조회)
@@ -646,11 +707,13 @@
 ---
 
 ### FE-10: 커스텀 훅 및 전역 스타일 구현
+
 **예상 시간**: 7시간
 **우선순위**: Medium
 **의존성**: FE-3
 
 #### 완료 조건
+
 - [ ] **커스텀 훅 구현**
   - [ ] `src/hooks/useAuth.js` (authStore 래핑)
   - [ ] `src/hooks/useTodos.js` (todoStore 래핑)
@@ -666,11 +729,13 @@
 ---
 
 ### FE-11: 에러 처리 및 성능 최적화
+
 **예상 시간**: 9시간
 **우선순위**: High
 **의존성**: FE-7, FE-8
 
 #### 완료 조건
+
 - [ ] **에러 처리**
   - [ ] `src/components/ErrorBoundary.jsx` 생성
   - [ ] `src/components/GlobalLoading.jsx` 생성
@@ -689,11 +754,13 @@
 ---
 
 ### FE-12: 접근성 개선 및 테스트 완성
+
 **예상 시간**: 13시간
 **우선순위**: High
 **의존성**: FE-1~FE-11
 
 #### 완료 조건
+
 - [ ] **접근성 개선**
   - [ ] 모든 인터랙티브 요소에 ARIA 속성 추가
   - [ ] 키보드 네비게이션 지원 (Tab, Enter, Esc)
@@ -711,11 +778,13 @@
 ---
 
 ### FE-13: Vercel 배포 및 문서화
+
 **예상 시간**: 4시간
 **우선순위**: High
 **의존성**: FE-12
 
 #### 완료 조건
+
 - [ ] `vercel.json` 설정 파일 생성 (SPA 라우팅 설정)
 - [ ] Vercel 프로젝트 생성 및 연결
 - [ ] 환경 변수 설정 (Vercel Dashboard: `VITE_API_BASE_URL`)
@@ -760,30 +829,33 @@ Frontend Phase (병렬 개발 가능)
 
 ## 주요 마일스톤 및 체크포인트
 
-| 마일스톤 | 완료 Task | 예상 완료 시간 | 누적 시간 |
-|---------|---------|--------------|----------|
-| **데이터베이스 완료** | DB-1~DB-8 | 28시간 | 28시간 |
-| **백엔드 기반 구축** | BE-1~BE-5 | 19시간 | 47시간 |
-| **백엔드 인증 완료** | BE-6~BE-7 | 32시간 | 60시간 |
-| **백엔드 Core API 완료** | BE-8~BE-10 | 53시간 | 81시간 |
-| **백엔드 배포 완료** | BE-11~BE-13 | 75시간 | 103시간 |
-| **프론트엔드 기반 구축** | FE-1~FE-5 | 25시간 | 128시간 |
-| **프론트엔드 인증 완료** | FE-6 | 33시간 | 136시간 |
-| **프론트엔드 Core 페이지 완료** | FE-7~FE-9 | 66시간 | 169시간 |
-| **프론트엔드 배포 완료** | FE-10~FE-13 | 99시간 | 202시간 |
+| 마일스톤                        | 완료 Task   | 예상 완료 시간 | 누적 시간 |
+| ------------------------------- | ----------- | -------------- | --------- |
+| **데이터베이스 완료**           | DB-1~DB-8   | 28시간         | 28시간    |
+| **백엔드 기반 구축**            | BE-1~BE-5   | 19시간         | 47시간    |
+| **백엔드 인증 완료**            | BE-6~BE-7   | 32시간         | 60시간    |
+| **백엔드 Core API 완료**        | BE-8~BE-10  | 53시간         | 81시간    |
+| **백엔드 배포 완료**            | BE-11~BE-13 | 75시간         | 103시간   |
+| **프론트엔드 기반 구축**        | FE-1~FE-5   | 25시간         | 128시간   |
+| **프론트엔드 인증 완료**        | FE-6        | 33시간         | 136시간   |
+| **프론트엔드 Core 페이지 완료** | FE-7~FE-9   | 66시간         | 169시간   |
+| **프론트엔드 배포 완료**        | FE-10~FE-13 | 99시간         | 202시간   |
 
 ---
 
 ## 병렬 처리 가능 작업
 
 ### 데이터베이스
+
 - DB 작업은 순차적으로 진행
 
 ### 백엔드
+
 - BE-3 + BE-4 (모델 레이어 + 미들웨어/유틸리티)
 - BE-9 + BE-10 (휴지통 + 캘린더/국경일)
 
 ### 프론트엔드
+
 - FE-3 + FE-4 (라우팅/스토어 + 공통 컴포넌트 일부)
 - FE-7 + FE-8 + FE-9 (각 페이지 독립 개발)
 - FE-10 (커스텀 훅 + 스타일)
@@ -793,22 +865,26 @@ Frontend Phase (병렬 개발 가능)
 ## 우선순위 분류
 
 ### Critical Path (High Priority)
+
 1. **Database**: DB-1~DB-7 (필수 인프라)
 2. **Backend**: BE-1~BE-8, BE-11~BE-13 (핵심 API 및 배포)
 3. **Frontend**: FE-1~FE-8, FE-11~FE-13 (핵심 UI 및 배포)
 
 ### Important (Medium Priority)
+
 1. **Database**: DB-8 (문서화)
 2. **Backend**: BE-9, BE-10 (휴지통, 캘린더)
 3. **Frontend**: FE-5, FE-9, FE-10 (레이아웃, 휴지통/프로필, 훅/스타일)
 
 ### Nice to Have (Low Priority)
+
 1. **Backend**: 비밀번호 변경, 다크 모드
 2. **Frontend**: 다크 모드, Custom Domain
 
 ---
 
 ## 참고 문서
+
 - `database/schema.sql`: 데이터베이스 DDL
 - `docs/3-prd.md`: 제품 요구사항 문서
 - `docs/4-api-spec.md`: API 상세 스펙
