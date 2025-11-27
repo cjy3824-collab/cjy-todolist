@@ -140,3 +140,6 @@ public/static/sw*
 ehthumbs.db
 Thumbs.db
 Icon?
+
+# Claude Code MCP local configuration
+.claude/.mcp.local.json

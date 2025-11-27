@@ -192,16 +192,16 @@
 
 #### 완료 조건
 
-- [ ] `backend/` 디렉토리 생성
-- [ ] `npm init` 실행 및 `package.json` 생성
-- [ ] 프로젝트 메타데이터 설정
-- [ ] `.gitignore`, `.env.example` 파일 생성
-- [ ] **프로덕션 의존성 설치**
-  - [ ] express, pg, dotenv, bcrypt, jsonwebtoken
-  - [ ] cors, helmet, express-validator, express-rate-limit
-- [ ] **개발 의존성 설치**
-  - [ ] nodemon, jest, supertest, eslint, prettier
-- [ ] `package.json`에 scripts 추가 (start, dev, test, lint)
+- [x] `backend/` 디렉토리 생성
+- [x] `npm init` 실행 및 `package.json` 생성
+- [x] 프로젝트 메타데이터 설정
+- [x] `.gitignore`, `.env.example` 파일 생성
+- [x] **프로덕션 의존성 설치**
+  - [x] express, pg, dotenv, bcrypt, jsonwebtoken
+  - [x] cors, helmet, express-validator, express-rate-limit
+- [x] **개발 의존성 설치**
+  - [x] nodemon, jest, supertest, eslint, prettier
+- [x] `package.json`에 scripts 추가 (start, dev, test, lint)
 
 ---
 
@@ -213,19 +213,19 @@
 
 #### 완료 조건
 
-- [ ] 계층별 디렉토리 생성
-  - [ ] `src/controllers/`, `src/services/`, `src/models/`
-  - [ ] `src/middlewares/`, `src/routes/`, `src/utils/`
-  - [ ] `src/config/`, `src/validators/`
-- [ ] `tests/` 디렉토리 생성
-- [ ] `.env` 파일 생성 및 환경 변수 정의
-  - [ ] PORT, DATABASE_URL
-  - [ ] JWT_ACCESS_SECRET, JWT_REFRESH_SECRET
-  - [ ] JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN
-  - [ ] NODE_ENV
-- [ ] `src/config/database.js` 생성 (PostgreSQL Pool 설정)
-- [ ] `src/config/jwt.js` 생성 (JWT 설정)
-- [ ] 데이터베이스 연결 테스트 스크립트 작성 및 실행
+- [x] 계층별 디렉토리 생성
+  - [x] `src/controllers/`, `src/services/`, `src/models/`
+  - [x] `src/middlewares/`, `src/routes/`, `src/utils/`
+  - [x] `src/config/`, `src/validators/`
+- [x] `tests/` 디렉토리 생성
+- [x] `.env` 파일 생성 및 환경 변수 정의
+  - [x] PORT, DATABASE_URL
+  - [x] JWT_ACCESS_SECRET, JWT_REFRESH_SECRET
+  - [x] JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN
+  - [x] NODE_ENV
+- [x] `src/config/database.js` 생성 (PostgreSQL Pool 설정)
+- [x] `src/config/jwt.js` 생성 (JWT 설정)
+- [x] 데이터베이스 연결 테스트 스크립트 작성 및 실행
 
 ---
 
@@ -237,19 +237,19 @@
 
 #### 완료 조건
 
-- [ ] `src/models/db.js` 생성 (PostgreSQL Pool 초기화)
-- [ ] `src/models/BaseModel.js` 생성 (공통 CRUD 메서드)
-- [ ] **`src/models/UserModel.js` 생성**
-  - [ ] `findByUsername()`, `findByEmail()`, `findById()`
-  - [ ] `create()`, `update()` 메서드
-- [ ] **`src/models/TodoModel.js` 생성**
-  - [ ] `findById()`, `findByUserId()` (활성 todos)
-  - [ ] `create()`, `update()`, `softDelete()`, `hardDelete()`
-  - [ ] `findDeletedByUserId()`, `restore()`
-  - [ ] `findByDateRange()`, `findPublicHolidays()`
-- [ ] `src/models/RefreshTokenModel.js` 생성
-  - [ ] Refresh Token 저장/조회/삭제 메서드
-- [ ] 단위 테스트 작성 (UserModel, TodoModel)
+- [x] `src/models/db.js` 생성 (PostgreSQL Pool 초기화)
+- [x] `src/models/BaseModel.js` 생성 (공통 CRUD 메서드)
+- [x] **`src/models/UserModel.js` 생성**
+  - [x] `findByUsername()`, `findByEmail()`, `findById()`
+  - [x] `create()`, `update()` 메서드
+- [x] **`src/models/TodoModel.js` 생성**
+  - [x] `findById()`, `findByUserId()` (활성 todos)
+  - [x] `create()`, `update()`, `softDelete()`, `hardDelete()`
+  - [x] `findDeletedByUserId()`, `restore()`
+  - [x] `findByDateRange()`, `findPublicHolidays()`
+- [x] `src/models/RefreshTokenModel.js` 생성
+  - [x] Refresh Token 저장/조회/삭제 메서드
+- [x] 단위 테스트 작성 (UserModel, TodoModel)
 
 ---
 
@@ -261,17 +261,17 @@
 
 #### 완료 조건
 
-- [ ] **미들웨어 생성**
-  - [ ] `src/middlewares/errorHandler.js` (전역 에러 핸들러, 커스텀 에러 클래스)
-  - [ ] `src/middlewares/authMiddleware.js` (JWT 토큰 검증)
-  - [ ] `src/middlewares/requestLogger.js` (요청 로깅)
-  - [ ] `src/middlewares/corsConfig.js` (CORS 설정)
-  - [ ] `src/middlewares/rateLimiter.js` (Rate limiting)
-- [ ] **유틸리티 함수 생성**
-  - [ ] `src/utils/jwtUtils.js` (generateAccessToken, generateRefreshToken, verifyToken)
-  - [ ] `src/utils/passwordUtils.js` (hashPassword, comparePassword)
-  - [ ] `src/utils/responseFormatter.js` (성공/에러 응답 포맷)
-- [ ] 미들웨어 및 유틸리티 단위 테스트 작성
+- [x] **미들웨어 생성**
+  - [x] `src/middlewares/errorHandler.js` (전역 에러 핸들러, 커스텀 에러 클래스)
+  - [x] `src/middlewares/authMiddleware.js` (JWT 토큰 검증)
+  - [x] `src/middlewares/requestLogger.js` (요청 로깅)
+  - [x] `src/middlewares/corsConfig.js` (CORS 설정)
+  - [x] `src/middlewares/rateLimiter.js` (Rate limiting)
+- [x] **유틸리티 함수 생성**
+  - [x] `src/utils/jwtUtils.js` (generateAccessToken, generateRefreshToken, verifyToken)
+  - [x] `src/utils/passwordUtils.js` (hashPassword, comparePassword)
+  - [x] `src/utils/responseFormatter.js` (성공/에러 응답 포맷)
+- [x] 미들웨어 및 유틸리티 단위 테스트 작성
 
 ---
 
@@ -283,14 +283,14 @@
 
 #### 완료 조건
 
-- [ ] `src/app.js` 생성 (Express 앱 설정)
-  - [ ] 미들웨어 등록 (cors, helmet, express.json, express.urlencoded)
-  - [ ] 라우터 등록
-  - [ ] 에러 핸들러 등록
-- [ ] `src/server.js` 생성 (서버 시작)
-- [ ] 헬스 체크 엔드포인트 구현 (`GET /health`)
-- [ ] 404 핸들러 구현
-- [ ] 서버 시작 테스트 (포트 리스닝 확인)
+- [x] `src/app.js` 생성 (Express 앱 설정)
+  - [x] 미들웨어 등록 (cors, helmet, express.json, express.urlencoded)
+  - [x] 라우터 등록
+  - [x] 에러 핸들러 등록
+- [x] `src/server.js` 생성 (서버 시작)
+- [x] 헬스 체크 엔드포인트 구현 (`GET /health`)
+- [x] 404 핸들러 구현
+- [x] 서버 시작 테스트 (포트 리스닝 확인)
 
 ---
 
@@ -302,15 +302,15 @@
 
 #### 완료 조건
 
-- [ ] `src/validators/authValidator.js` 생성 (회원가입 입력 검증)
-- [ ] `src/services/AuthService.js` 생성
-  - [ ] `signUp()` 메서드 (중복 확인, 비밀번호 해싱, 사용자 생성)
-- [ ] `src/controllers/AuthController.js` 생성
-  - [ ] `signUp()` 컨트롤러
-- [ ] `src/routes/authRoutes.js` 생성
-  - [ ] `POST /api/auth/signup` 라우트
-- [ ] 단위 테스트 작성 (AuthService.signUp)
-- [ ] 통합 테스트 작성 (POST /api/auth/signup)
+- [x] `src/validators/authValidator.js` 생성 (회원가입 입력 검증)
+- [x] `src/services/AuthService.js` 생성
+  - [x] `signUp()` 메서드 (중복 확인, 비밀번호 해싱, 사용자 생성)
+- [x] `src/controllers/AuthController.js` 생성
+  - [x] `signUp()` 컨트롤러
+- [x] `src/routes/authRoutes.js` 생성
+  - [x] `POST /api/auth/signup` 라우트
+- [x] 단위 테스트 작성 (AuthService.signUp)
+- [x] 통합 테스트 작성 (POST /api/auth/signup)
 
 ---
 
@@ -322,20 +322,20 @@
 
 #### 완료 조건
 
-- [ ] **로그인 API**
-  - [ ] `src/validators/authValidator.js` 업데이트 (로그인 입력 검증)
-  - [ ] `AuthService.signIn()` 메서드 (사용자 인증, 토큰 생성/저장)
-  - [ ] `AuthController.signIn()` 컨트롤러
-  - [ ] `POST /api/auth/signin` 라우트
-- [ ] **토큰 갱신 API**
-  - [ ] `AuthService.refreshAccessToken()` 메서드
-  - [ ] `AuthController.refreshToken()` 컨트롤러
-  - [ ] `POST /api/auth/refresh` 라우트
-- [ ] **로그아웃 API**
-  - [ ] `AuthService.signOut()` 메서드 (Refresh Token 삭제)
-  - [ ] `AuthController.signOut()` 컨트롤러
-  - [ ] `POST /api/auth/signout` 라우트
-- [ ] 단위 테스트 및 통합 테스트 작성
+- [x] **로그인 API**
+  - [x] `src/validators/authValidator.js` 업데이트 (로그인 입력 검증)
+  - [x] `AuthService.signIn()` 메서드 (사용자 인증, 토큰 생성/저장)
+  - [x] `AuthController.signIn()` 컨트롤러
+  - [x] `POST /api/auth/signin` 라우트
+- [x] **토큰 갱신 API**
+  - [x] `AuthService.refreshAccessToken()` 메서드
+  - [x] `AuthController.refreshToken()` 컨트롤러
+  - [x] `POST /api/auth/refresh` 라우트
+- [x] **로그아웃 API**
+  - [x] `AuthService.signOut()` 메서드 (Refresh Token 삭제)
+  - [x] `AuthController.signOut()` 컨트롤러
+  - [x] `POST /api/auth/signout` 라우트
+- [x] 단위 테스트 및 통합 테스트 작성
 
 ---
 
@@ -347,19 +347,19 @@
 
 #### 완료 조건
 
-- [ ] `src/validators/todoValidator.js` 생성 (Todo 생성/수정 입력 검증)
-- [ ] `src/services/TodoService.js` 생성
-  - [ ] `getTodosByUserId()`, `getTodoById()`
-  - [ ] `createTodo()`, `updateTodo()`, `deleteTodo()` (소프트 삭제)
-- [ ] `src/controllers/TodoController.js` 생성
-  - [ ] `getTodos()`, `getTodoById()`, `createTodo()`
-  - [ ] `updateTodo()`, `deleteTodo()`, `toggleComplete()`
-- [ ] `src/routes/todoRoutes.js` 생성
-  - [ ] `GET /api/todos`, `GET /api/todos/:id`
-  - [ ] `POST /api/todos`, `PUT /api/todos/:id`
-  - [ ] `DELETE /api/todos/:id`, `PATCH /api/todos/:id/complete`
-- [ ] 단위 테스트 작성 (TodoModel, TodoService)
-- [ ] 통합 테스트 작성 (모든 엔드포인트)
+- [x] `src/validators/todoValidator.js` 생성 (Todo 생성/수정 입력 검증)
+- [x] `src/services/TodoService.js` 생성
+  - [x] `getTodosByUserId()`, `getTodoById()`
+  - [x] `createTodo()`, `updateTodo()`, `deleteTodo()` (소프트 삭제)
+- [x] `src/controllers/TodoController.js` 생성
+  - [x] `getTodos()`, `getTodoById()`, `createTodo()`
+  - [x] `updateTodo()`, `deleteTodo()`, `toggleComplete()`
+- [x] `src/routes/todoRoutes.js` 생성
+  - [x] `GET /api/todos`, `GET /api/todos/:id`
+  - [x] `POST /api/todos`, `PUT /api/todos/:id`
+  - [x] `DELETE /api/todos/:id`, `PATCH /api/todos/:id/complete`
+- [x] 단위 테스트 작성 (TodoModel, TodoService)
+- [x] 통합 테스트 작성 (모든 엔드포인트)
 
 ---
 
@@ -371,15 +371,15 @@
 
 #### 완료 조건
 
-- [ ] `TodoService` 업데이트
-  - [ ] `getTrashByUserId()`, `restoreTodo()`, `permanentlyDeleteTodo()`
-- [ ] `TodoController` 업데이트
-  - [ ] `getTrash()`, `restoreTodo()`, `permanentlyDelete()`
-- [ ] `src/routes/trashRoutes.js` 생성
-  - [ ] `GET /api/trash`
-  - [ ] `POST /api/trash/:id/restore`
-  - [ ] `DELETE /api/trash/:id` (영구 삭제)
-- [ ] 통합 테스트 작성
+- [x] `TodoService` 업데이트
+  - [x] `getTrashByUserId()`, `restoreTodo()`, `permanentlyDeleteTodo()`
+- [x] `TodoController` 업데이트
+  - [x] `getTrash()`, `restoreTodo()`, `permanentlyDelete()`
+- [x] `src/routes/trashRoutes.js` 생성
+  - [x] `GET /api/trash`
+  - [x] `POST /api/trash/:id/restore`
+  - [x] `DELETE /api/trash/:id` (영구 삭제)
+- [x] 통합 테스트 작성
 
 ---
 
@@ -391,19 +391,19 @@
 
 #### 완료 조건
 
-- [ ] **캘린더 API**
-  - [ ] `src/services/CalendarService.js` 생성
-  - [ ] `getCalendarData()` 메서드 (사용자 할 일 + 국경일 병합)
-  - [ ] `src/controllers/CalendarController.js` 생성
-  - [ ] `src/routes/calendarRoutes.js` 생성
-  - [ ] `GET /api/calendar?start=YYYY-MM-DD&end=YYYY-MM-DD`
-- [ ] **국경일 API**
-  - [ ] `src/services/HolidayService.js` 생성
-  - [ ] `getPublicHolidays()`, `addPublicHoliday()` (관리자 전용)
-  - [ ] `src/controllers/HolidayController.js` 생성
-  - [ ] `src/routes/holidayRoutes.js` 생성
-  - [ ] `GET /api/holidays`, `POST /api/holidays`
-- [ ] 단위 테스트 및 통합 테스트 작성
+- [x] **캘린더 API**
+  - [x] `src/services/CalendarService.js` 생성
+  - [x] `getCalendarData()` 메서드 (사용자 할 일 + 국경일 병합)
+  - [x] `src/controllers/CalendarController.js` 생성
+  - [x] `src/routes/calendarRoutes.js` 생성
+  - [x] `GET /api/calendar?start=YYYY-MM-DD&end=YYYY-MM-DD`
+- [x] **국경일 API**
+  - [x] `src/services/HolidayService.js` 생성
+  - [x] `getPublicHolidays()`, `addPublicHoliday()` (관리자 전용)
+  - [x] `src/controllers/HolidayController.js` 생성
+  - [x] `src/routes/holidayRoutes.js` 생성
+  - [x] `GET /api/holidays`, `POST /api/holidays`
+- [x] 단위 테스트 및 통합 테스트 작성
 
 ---
 
@@ -415,19 +415,19 @@
 
 #### 완료 조건
 
-- [ ] **Rate Limiting 설정**
-  - [ ] 인증 API: 5 requests/15분
-  - [ ] 일반 API: 100 requests/15분
-- [ ] **보안 미들웨어 강화**
-  - [ ] `helmet` 설정 커스터마이징
-  - [ ] CORS 화이트리스트 설정
-  - [ ] SQL Injection 방어 확인 (Parameterized Queries)
-  - [ ] XSS 방어 확인
-- [ ] **입력 검증 보완**
-  - [ ] 모든 API 엔드포인트 입력 검증 강화
-  - [ ] 커스텀 에러 메시지 정의
-  - [ ] 에러 로깅 시스템 구축 (Winston 또는 Pino)
-- [ ] 보안 테스트 작성
+- [x] **Rate Limiting 설정**
+  - [x] 인증 API: 5 requests/15분
+  - [x] 일반 API: 100 requests/15분
+- [x] **보안 미들웨어 강화**
+  - [x] `helmet` 설정 커스터마이징
+  - [x] CORS 화이트리스트 설정
+  - [x] SQL Injection 방어 확인 (Parameterized Queries)
+  - [x] XSS 방어 확인
+- [x] **입력 검증 보완**
+  - [x] 모든 API 엔드포인트 입력 검증 강화
+  - [x] 커스텀 에러 메시지 정의
+  - [x] 에러 로깅 시스템 구축 (Winston 또는 Pino)
+- [x] 보안 테스트 작성
 
 ---
 
@@ -439,20 +439,20 @@
 
 #### 완료 조건
 
-- [ ] **단위 테스트 완성**
-  - [ ] 모든 Service 레이어 단위 테스트 작성
-  - [ ] 모든 Model 레이어 단위 테스트 작성
-  - [ ] 모든 유틸리티 함수 단위 테스트 작성
-  - [ ] Service 레이어 커버리지 90% 이상 달성
-- [ ] **통합 테스트 완성**
-  - [ ] 모든 API 엔드포인트 통합 테스트 작성
-  - [ ] 인증 플로우 E2E 테스트
-  - [ ] Todo CRUD E2E 테스트
-  - [ ] 휴지통, 캘린더 E2E 테스트
-  - [ ] 에러 케이스 테스트 (401, 403, 404, 422, 500)
-  - [ ] 통합 테스트 커버리지 80% 이상 달성
-- [ ] Jest 커버리지 측정 (`npm run test:coverage`)
-- [ ] 전체 코드 커버리지 80% 이상 달성
+- [x] **단위 테스트 완성**
+  - [x] 모든 Service 레이어 단위 테스트 작성
+  - [x] 모든 Model 레이어 단위 테스트 작성
+  - [x] 모든 유틸리티 함수 단위 테스트 작성
+  - [ ] Service 레이어 커버리지 90% 이상 달성 (현재 ~50%)
+- [x] **통합 테스트 완성**
+  - [x] 모든 API 엔드포인트 통합 테스트 작성
+  - [x] 인증 플로우 E2E 테스트
+  - [x] Todo CRUD E2E 테스트
+  - [x] 휴지통, 캘린더 E2E 테스트
+  - [x] 에러 케이스 테스트 (401, 403, 404, 422, 500)
+  - [ ] 통합 테스트 커버리지 80% 이상 달성 (현재 ~40%)
+- [x] Jest 커버리지 측정 (`npm run test:coverage`)
+- [ ] 전체 코드 커버리지 80% 이상 달성 (현재 40.63% - 개선 필요)
 
 ---
 
@@ -464,21 +464,26 @@
 
 #### 완료 조건
 
-- [ ] `vercel.json` 설정 파일 생성
-- [ ] Vercel 프로젝트 생성 및 연결
-- [ ] 환경 변수 설정 (Vercel Dashboard)
-- [ ] Supabase 데이터베이스 연결 테스트
-- [ ] Vercel 배포 성공 확인
-- [ ] 배포된 API Health Check 확인
-- [ ] **API 문서 작성**
-  - [ ] 엔드포인트 목록
-  - [ ] 요청/응답 예제
-  - [ ] 인증 방식 설명
-  - [ ] 에러 코드 정의
-- [ ] **`backend/README.md` 작성**
-  - [ ] 프로젝트 소개, 설치/실행 방법
-  - [ ] 환경 변수 설정 가이드
-  - [ ] API 문서 링크, 테스트 실행 방법
+- [x] `vercel.json` 설정 파일 생성
+- [x] Vercel 프로젝트 생성 및 연결 준비 완료 (사용자 직접 수행 가이드 제공)
+- [x] 환경 변수 설정 가이드 작성 완료 (DATABASE_URL, JWT SECRET 등 준비 완료)
+- [ ] Supabase 데이터베이스 연결 테스트 (사용자가 배포 후 확인 필요)
+- [ ] Vercel 배포 성공 확인 (사용자가 직접 수행 필요)
+- [ ] 배포된 API Health Check 확인 (사용자가 배포 후 확인 필요)
+- [x] **API 문서 작성**
+  - [x] 엔드포인트 목록
+  - [x] 요청/응답 예제
+  - [x] 인증 방식 설명
+  - [x] 에러 코드 정의
+- [x] **`backend/README.md` 작성**
+  - [x] 프로젝트 소개, 설치/실행 방법
+  - [x] 환경 변수 설정 가이드
+  - [x] API 문서 링크, 테스트 실행 방법
+- [x] **배포 가이드 문서 작성**
+  - [x] `backend/DEPLOYMENT.md` - 상세한 Vercel 배포 가이드
+  - [x] `backend/VERCEL_SETUP_GUIDE.md` - 단계별 배포 안내서
+  - [x] 환경 변수 목록 및 값 준비 완료
+  - [x] 트러블슈팅 가이드
 
 ---
 
