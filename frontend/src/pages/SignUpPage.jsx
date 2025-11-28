@@ -3,7 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { Button, Input, ErrorMessage } from '../components/common';
 import { signUp } from '../services/authApi';
-import { isValidEmail, isValidPassword, isValidUsername } from '../utils/validators';
+import {
+  isValidEmail,
+  isValidPassword,
+  isValidUsername,
+} from '../utils/validators';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -34,7 +38,8 @@ const SignUpPage = () => {
     if (!formData.username.trim()) {
       newErrors.username = '사용자명은 필수 입력 항목입니다.';
     } else if (!isValidUsername(formData.username)) {
-      newErrors.username = '사용자명은 3-50자의 영문, 한글, 숫자, 언더스코어만 사용 가능합니다.';
+      newErrors.username =
+        '사용자명은 3-50자의 영문, 한글, 숫자, 언더스코어만 사용 가능합니다.';
     }
 
     // 이메일 검증
@@ -94,10 +99,22 @@ const SignUpPage = () => {
       // 서버 에러 메시지 처리
       if (error.message) {
         // 중복 사용자명/이메일 등의 에러 메시지
-        if (error.message.includes('username') || error.message.includes('사용자명')) {
-          setErrors((prev) => ({ ...prev, username: '이미 사용 중인 사용자명입니다.' }));
-        } else if (error.message.includes('email') || error.message.includes('이메일')) {
-          setErrors((prev) => ({ ...prev, email: '이미 등록된 이메일입니다.' }));
+        if (
+          error.message.includes('username') ||
+          error.message.includes('사용자명')
+        ) {
+          setErrors((prev) => ({
+            ...prev,
+            username: '이미 사용 중인 사용자명입니다.',
+          }));
+        } else if (
+          error.message.includes('email') ||
+          error.message.includes('이메일')
+        ) {
+          setErrors((prev) => ({
+            ...prev,
+            email: '이미 등록된 이메일입니다.',
+          }));
         } else {
           toast.error(error.message);
         }
@@ -115,7 +132,7 @@ const SignUpPage = () => {
         {/* 헤더 */}
         <div>
           <h1 className="text-center text-3xl font-bold text-gray-900">
-            cjy-todoList
+            할 일을 미루지 말자
           </h1>
           <p className="mt-2 text-center text-sm text-gray-600">
             계정을 만들어 시작하세요
