@@ -91,13 +91,29 @@ const ProfilePage = () => {
       // 브라우저 알림 권한 요청
       if ('Notification' in window) {
         try {
-          const permission = await Notification.requestPermission();
-          if (permission === 'granted') {
+          // 현재 권한 상태 확인
+          const currentPermission = Notification.permission;
+
+          if (currentPermission === 'granted') {
+            // 이미 허용된 경우
             setIsNotificationsEnabled(true);
             localStorage.setItem('notifications', 'enabled');
             toast.success('알림이 활성화되었습니다.');
+          } else if (currentPermission === 'denied') {
+            // 이미 거부된 경우 - 브라우저 설정에서 수동으로 허용해야 함
+            toast.error('알림 권한이 차단되어 있습니다. 브라우저 설정에서 알림 권한을 허용해주세요.', {
+              duration: 5000,
+            });
           } else {
-            toast.error('알림 권한이 거부되었습니다.');
+            // 아직 요청하지 않은 경우 - 권한 요청
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+              setIsNotificationsEnabled(true);
+              localStorage.setItem('notifications', 'enabled');
+              toast.success('알림이 활성화되었습니다.');
+            } else {
+              toast.error('알림 권한이 거부되었습니다.');
+            }
           }
         } catch (err) {
           console.error('알림 권한 요청 실패:', err);
@@ -166,7 +182,7 @@ const ProfilePage = () => {
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">프로필</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">프로필</h1>
         </div>
 
         {/* 로딩 상태 */}
@@ -188,8 +204,8 @@ const ProfilePage = () => {
         {!isLoading && !error && profile && (
           <div className="space-y-8">
             {/* 사용자 정보 */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">사용자 정보</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">사용자 정보</h2>
               
               <div className="flex items-center mb-6">
                 <div className="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center">
@@ -201,18 +217,18 @@ const ProfilePage = () => {
 
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">사용자명</label>
-                  <p className="text-gray-900">{profile.username}</p>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">사용자명</label>
+                  <p className="text-gray-900 dark:text-white">{profile.username}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">이메일</label>
-                  <p className="text-gray-900">{profile.email}</p>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">이메일</label>
+                  <p className="text-gray-900 dark:text-white">{profile.email}</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">가입일</label>
-                  <p className="text-gray-900">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">가입일</label>
+                  <p className="text-gray-900 dark:text-white">
                     {profile.createdAt ? format(new Date(profile.createdAt), 'yyyy년 M월 d일') : '알 수 없음'}
                   </p>
                 </div>
@@ -227,52 +243,52 @@ const ProfilePage = () => {
             </div>
 
             {/* 통계 정보 */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">이번 달 통계</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">이번 달 통계</h2>
               
               <div className="grid grid-cols-3 gap-4 mb-4">
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-gray-900">{stats?.total || totalTodos}</div>
-                  <div className="text-sm text-gray-600">전체</div>
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center transition-colors duration-200">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.total || totalTodos}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">전체</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-gray-900">{stats?.completed || completedTodos}</div>
-                  <div className="text-sm text-gray-600">완료</div>
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center transition-colors duration-200">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.completed || completedTodos}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">완료</div>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-4 text-center">
-                  <div className="text-2xl font-bold text-gray-900">{stats?.pending || (totalTodos - completedTodos)}</div>
-                  <div className="text-sm text-gray-600">미완료</div>
+                <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 text-center transition-colors duration-200">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">{stats?.pending || (totalTodos - completedTodos)}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">미완료</div>
                 </div>
               </div>
 
               <div className="mb-2">
-                <div className="flex justify-between text-sm text-gray-600 mb-1">
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-1">
                   <span>완료율</span>
                   <span>{completionRate}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-primary-500 h-2 rounded-full" 
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div
+                    className="bg-primary-500 h-2 rounded-full"
                     style={{ width: `${completionRate}%` }}
                   ></div>
                 </div>
               </div>
-              <div className="text-center text-sm text-gray-600 mt-1">
+              <div className="text-center text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {stats?.completed || completedTodos} / {stats?.total || totalTodos}
               </div>
             </div>
 
             {/* 설정 */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">설정</h2>
-              
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">설정</h2>
+
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-700">다크 모드</span>
+                  <span className="text-gray-700 dark:text-gray-300">다크 모드</span>
                   <button
                     onClick={handleDarkModeToggle}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-                      isDarkMode ? 'bg-primary-500' : 'bg-gray-200'
+                      isDarkMode ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-600'
                     }`}
                     aria-label="다크 모드 토글"
                   >
@@ -285,11 +301,11 @@ const ProfilePage = () => {
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-700">알림 활성화</span>
+                  <span className="text-gray-700 dark:text-gray-300">알림 활성화</span>
                   <button
                     onClick={handleNotificationsToggle}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 ${
-                      isNotificationsEnabled ? 'bg-primary-500' : 'bg-gray-200'
+                      isNotificationsEnabled ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-600'
                     }`}
                     aria-label="알림 토글"
                   >
@@ -304,9 +320,9 @@ const ProfilePage = () => {
             </div>
 
             {/* 로그아웃 */}
-            <div className="bg-white rounded-lg border border-gray-200 p-6">
-              <Button 
-                variant="danger" 
+            <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors duration-200">
+              <Button
+                variant="danger"
                 onClick={handleLogout}
                 className="w-full"
               >
