@@ -39,7 +39,7 @@ const Header = () => {
             className="flex items-center space-x-2 text-xl font-bold text-primary-500 hover:text-primary-600 transition-colors"
           >
             <span>📋</span>
-            <span className="hidden sm:inline">할 일을 미루지 말자</span>
+            <span className="hidden sm:inline">Don't be lazy</span>
           </Link>
 
           {/* 데스크톱 네비게이션 */}

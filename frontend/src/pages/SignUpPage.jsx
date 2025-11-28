@@ -132,7 +132,7 @@ const SignUpPage = () => {
         {/* 헤더 */}
         <div>
           <h1 className="text-center text-3xl font-bold text-gray-900">
-            할 일을 미루지 말자
+            Don't be lazy
           </h1>
           <p className="mt-2 text-center text-sm text-gray-600">
             계정을 만들어 시작하세요
