@@ -6,7 +6,7 @@ import RefreshTokenModel from '../models/RefreshTokenModel.js';
 // Access Token 생성
 export const generateAccessToken = (user) => {
   return jwt.sign(
-    { userId: user.userId, email: user.email },
+    { userId: user.userid, email: user.email },
     jwtConfig.access.secret,
     { expiresIn: jwtConfig.access.expiresIn }
   );
@@ -16,11 +16,11 @@ export const generateAccessToken = (user) => {
 export const generateRefreshToken = (user) => {
   // Refresh token을 위한 고유한 ID 생성
   const refreshTokenId = jwt.sign(
-    { userId: user.userId },
+    { userId: user.userid },
     jwtConfig.refresh.secret,
     { expiresIn: jwtConfig.refresh.expiresIn }
   );
-  
+
   return refreshTokenId;
 };
 

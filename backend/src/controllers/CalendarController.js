@@ -4,7 +4,7 @@ import CalendarService from '../services/CalendarService.js';
 class CalendarController {
   async getCalendar(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid; // 데이터베이스 컬럼명과 일치하도록 수정
       const { start, end } = req.query;
 
       // 쿼리 파라미터가 없을 경우 기본값 설정

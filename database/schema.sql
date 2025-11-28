@@ -121,6 +121,60 @@ CREATE TABLE todos (
         )
 );
 
+-- ============================================================================
+-- 3. Refresh Tokens 테이블
+-- ============================================================================
+-- 설명: JWT Refresh 토큰을 저장하는 테이블
+-- 주요 기능:
+--   - Refresh 토큰 관리
+--   - 자동 로그인 기능 지원
+-- ============================================================================
+
+CREATE TABLE refresh_tokens (
+    -- Primary Key
+    tokenId UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+
+    -- Foreign Key
+    userId UUID NOT NULL,
+
+    -- 토큰 정보
+    token VARCHAR(255) NOT NULL,
+    expiresAt TIMESTAMP NOT NULL,
+
+    -- 타임스탬프
+    createdAt TIMESTAMP NOT NULL DEFAULT NOW(),
+    updatedAt TIMESTAMP NOT NULL DEFAULT NOW(),
+
+    -- 제약 조건
+    CONSTRAINT fk_refresh_tokens_user_id
+        FOREIGN KEY (userId)
+        REFERENCES users(userId)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    CONSTRAINT uk_refresh_tokens_token UNIQUE (token)
+);
+
+-- Refresh Tokens 테이블 코멘트
+COMMENT ON TABLE refresh_tokens IS 'JWT Refresh 토큰 정보';
+COMMENT ON COLUMN refresh_tokens.tokenId IS 'Refresh 토큰 고유 ID (UUID)';
+COMMENT ON COLUMN refresh_tokens.userId IS '사용자 ID (FK)';
+COMMENT ON COLUMN refresh_tokens.token IS 'Refresh 토큰 값 (JWT)';
+COMMENT ON COLUMN refresh_tokens.expiresAt IS '토큰 만료 일시';
+COMMENT ON COLUMN refresh_tokens.createdAt IS '토큰 생성 일시';
+COMMENT ON COLUMN refresh_tokens.updatedAt IS '토큰 마지막 수정 일시';
+
+-- Refresh Tokens 테이블 인덱스
+CREATE INDEX idx_refresh_tokens_user_id ON refresh_tokens(userId);
+CREATE INDEX idx_refresh_tokens_token ON refresh_tokens(token);
+CREATE INDEX idx_refresh_tokens_expires_at ON refresh_tokens(expiresAt);
+
+-- 트리거 적용 (updatedAt 자동 업데이트)
+CREATE TRIGGER trg_refresh_tokens_updated_at
+    BEFORE UPDATE ON refresh_tokens
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
 -- Todos 테이블 코멘트
 COMMENT ON TABLE todos IS '할 일 및 국경일 정보';
 COMMENT ON COLUMN todos.todoId IS '할 일 고유 ID (UUID)';

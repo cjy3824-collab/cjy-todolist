@@ -4,7 +4,7 @@ import jwtConfig from '../config/jwt.js';
 import { ApiError } from './errorHandler.js';
 import UserModel from '../models/UserModel.js';
 
-const authenticateToken = (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
   try {
     // 헤더에서 토큰 추출
     const authHeader = req.headers['authorization'];
@@ -15,26 +15,25 @@ const authenticateToken = (req, res, next) => {
     }
 
     // 토큰 검증
-    jwt.verify(token, jwtConfig.access.secret, async (err, decoded) => {
-      if (err) {
-        if (err.name === 'TokenExpiredError') {
-          throw new ApiError('Access token expired', 401);
-        }
-        throw new ApiError('Invalid access token', 403);
-      }
+    const decoded = jwt.verify(token, jwtConfig.access.secret);
 
-      // 사용자 정보 확인
-      const user = await UserModel.findById(decoded.userId);
-      if (!user) {
-        throw new ApiError('User not found', 401);
-      }
+    // 사용자 정보 확인
+    const user = await UserModel.findById(decoded.userId);
+    if (!user) {
+      throw new ApiError('User not found', 401);
+    }
 
-      // 사용자 정보를 요청 객체에 추가
-      req.user = user;
-      next();
-    });
+    // 사용자 정보를 요청 객체에 추가
+    req.user = user;
+    next();
   } catch (error) {
-    next(error);
+    if (error.name === 'TokenExpiredError') {
+      next(new ApiError('Access token expired', 401));
+    } else if (error.name === 'JsonWebTokenError') {
+      next(new ApiError('Invalid access token', 403));
+    } else {
+      next(error);
+    }
   }
 };
 

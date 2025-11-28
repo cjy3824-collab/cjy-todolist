@@ -5,7 +5,7 @@ import { successResponse } from '../utils/responseFormatter.js';
 class TodoController {
   async getTodos(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const filters = {
         startDate: req.query.startDate,
         endDate: req.query.endDate,
@@ -22,7 +22,7 @@ class TodoController {
 
   async getTodoById(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
 
       const result = await TodoService.getTodoById(todoId, userId);
@@ -34,7 +34,7 @@ class TodoController {
 
   async createTodo(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoData = req.body;
 
       const result = await TodoService.createTodo(todoData, userId);
@@ -46,7 +46,7 @@ class TodoController {
 
   async updateTodo(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
       const todoData = req.body;
 
@@ -59,7 +59,7 @@ class TodoController {
 
   async deleteTodo(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
 
       const result = await TodoService.deleteTodo(todoId, userId);
@@ -71,7 +71,7 @@ class TodoController {
 
   async toggleComplete(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
       const { isCompleted } = req.body;
 
@@ -84,7 +84,7 @@ class TodoController {
 
   async getTrash(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
 
       const result = await TodoService.getTrashByUserId(userId);
       res.status(200).json(result);
@@ -95,7 +95,7 @@ class TodoController {
 
   async restoreTodo(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
 
       const result = await TodoService.restoreTodo(todoId, userId);
@@ -107,7 +107,7 @@ class TodoController {
 
   async permanentlyDelete(req, res, next) {
     try {
-      const userId = req.user.userId;
+      const userId = req.user.userid;
       const todoId = req.params.id;
 
       const result = await TodoService.permanentlyDeleteTodo(todoId, userId);

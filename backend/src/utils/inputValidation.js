@@ -6,8 +6,8 @@ export const validateUsername = () => {
   return body('username')
     .isLength({ min: 3, max: 50 })
     .withMessage('Username must be between 3 and 50 characters')
-    .matches(/^[a-zA-Z0-9_]+$/)
-    .withMessage('Username can only contain letters, numbers, and underscores');
+    .matches(/^[a-zA-Z0-9_\uAC00-\uD7AF\u1100-\u11FF\u3130-\u318F\uA960-\uA97F\uACF0-\uD7AF]+$/)
+    .withMessage('Username can only contain English letters, Korean characters, numbers, and underscores');
 };
 
 // 이메일 검증

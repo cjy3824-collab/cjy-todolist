@@ -1,0 +1,46 @@
+{
+  "scenario": "시나리오 1: 회원가입 및 첫 할 일 등록",
+  "timestamp": "2025-11-28T01:16:27.952Z",
+  "testUser": {
+    "username": "testuser_1764292587526",
+    "email": "testuser_1764292587526@test.com"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "name": "웹사이트 접속",
+      "status": "success"
+    },
+    {
+      "step": 2,
+      "name": "회원가입 페이지 이동",
+      "status": "success"
+    },
+    {
+      "step": 4,
+      "name": "회원가입 제출",
+      "status": "success"
+    },
+    {
+      "step": 5,
+      "name": "로그인 완료",
+      "status": "success"
+    }
+  ],
+  "screenshots": [
+    "scenario1-01-landing.png",
+    "scenario1-02-signup-page.png",
+    "scenario1-03-signup-form-filled.png",
+    "scenario1-04-after-signup.png",
+    "scenario1-05-logged-in.png",
+    "scenario1-06-first-todo-form.png",
+    "scenario1-error.png"
+  ],
+  "success": false,
+  "errors": [
+    {
+      "message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[type=\"submit\"]:has-text(\"저장\"), button:has-text(\"저장\"), button:has-text(\"추가\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 focus:ring-primary-500 disabled:bg-gray-300 disabled:text-gray-500 h-11 px-6 text-base cursor-pointer \">+ 새 할 일 추가</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "stack": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('button[type=\"submit\"]:has-text(\"저장\"), button:has-text(\"저장\"), button:has-text(\"추가\")').first()\u001b[22m\n\u001b[2m    - locator resolved to <button type=\"button\" class=\"inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700 focus:ring-primary-500 disabled:bg-gray-300 disabled:text-gray-500 h-11 px-6 text-base cursor-pointer \">+ 새 할 일 추가</button>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    57 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is visible, enabled and stable\u001b[22m\n\u001b[2m       - scrolling into view if needed\u001b[22m\n\u001b[2m       - done scrolling\u001b[22m\n\u001b[2m       - <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"modal-title\" class=\"fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 animate-fadeIn\">…</div> intercepts pointer events\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n\n    at C:\\test\\cjy-todolist\\test\\e2e\\scenario1-signup-and-first-todo.js:200:24"
+    }
+  ]
+}

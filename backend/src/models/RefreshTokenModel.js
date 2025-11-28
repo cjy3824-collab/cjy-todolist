@@ -4,7 +4,7 @@ import db from './db.js';
 class RefreshTokenModel {
   async create(userId, token, expiresAt) {
     const query = `
-      INSERT INTO refresh_tokens (user_id, token, expires_at)
+      INSERT INTO refresh_tokens (userid, token, expiresat)
       VALUES ($1, $2, $3)
       RETURNING *
     `;
@@ -25,7 +25,7 @@ class RefreshTokenModel {
   }
 
   async deleteByUserId(userId) {
-    const query = 'DELETE FROM refresh_tokens WHERE user_id = $1 RETURNING *';
+    const query = 'DELETE FROM refresh_tokens WHERE userid = $1 RETURNING *';
     const { rows } = await db.query(query, [userId]);
     return rows[0] || null;
   }

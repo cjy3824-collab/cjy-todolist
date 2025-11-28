@@ -26,7 +26,7 @@ class AuthService {
     const refreshToken = generateRefreshToken(newUser);
 
     // Refresh token 저장
-    await storeRefreshToken(newUser.userId, refreshToken);
+    await storeRefreshToken(newUser.userid, refreshToken);
 
     return tokenResponse(accessToken, refreshToken, newUser);
   }
@@ -51,16 +51,21 @@ class AuthService {
     const refreshToken = generateRefreshToken(user);
 
     // Refresh token 저장
-    await storeRefreshToken(user.userId, refreshToken);
+    await storeRefreshToken(user.userid, refreshToken);
 
     return tokenResponse(accessToken, refreshToken, user);
   }
 
-  async signOut(userId, refreshToken) {
-    // Refresh token 폐기
-    await revokeRefreshToken(refreshToken);
-    // 또는, 사용자의 모든 Refresh token을 폐기할 수도 있음
-    // await revokeAllRefreshTokens(userId);
+  async signOut(refreshToken) {
+    // Refresh token 폐기 (refreshToken이 없어도 성공 처리)
+    if (refreshToken) {
+      try {
+        await revokeRefreshToken(refreshToken);
+      } catch (error) {
+        // refreshToken이 이미 만료되었거나 없는 경우에도 성공 처리
+        console.log('RefreshToken revocation failed:', error.message);
+      }
+    }
 
     return successResponse(null, 'Successfully signed out');
   }

@@ -1,8 +1,14 @@
 // src/routes/userRoutes.js
 import express from 'express';
+import { authenticateToken } from '../middlewares/authMiddleware.js';
+import UserController from '../controllers/UserController.js';
+
 const router = express.Router();
 
-// 이 파일은 향후 사용자 관련 라우트를 정의할 때 사용됩니다
-// 현재는 빈 라우터로 유지합니다
+// 사용자 인증이 필요한 라우트
+router.get('/profile', authenticateToken, UserController.getProfile);
+router.put('/profile', authenticateToken, UserController.updateProfile);
+router.put('/profile/password', authenticateToken, UserController.changePassword);
+router.get('/profile/stats', authenticateToken, UserController.getUserStats);
 
 export default router;

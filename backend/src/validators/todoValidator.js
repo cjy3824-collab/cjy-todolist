@@ -6,14 +6,30 @@ import { validateTitle, validateDescription, validateDate, validateDateRangeQuer
 const createTodoValidationRules = [
   validateTitle('title'),
   validateDescription('description'),
-  validateDate('startDate'),
-  validateDate('dueDate'),
+  body('startDate')
+    .optional({ nullable: true, checkFalsy: true })
+    .custom((value) => {
+      if (value === null || value === undefined || value === '') return true;
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(value)) {
+        throw new Error('Start date must be in YYYY-MM-DD format');
+      }
+      return true;
+    }),
   body('dueDate')
-    .optional()
-    .isISO8601()
-    .withMessage('Due date must be a valid date in ISO 8601 format (YYYY-MM-DD)')
-    .isAfter(new Date().toISOString().split('T')[0])
-    .withMessage('Due date must be after today')
+    .optional({ nullable: true, checkFalsy: true })
+    .custom((value, { req }) => {
+      if (value === null || value === undefined || value === '') return true;
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(value)) {
+        throw new Error('Due date must be in YYYY-MM-DD format');
+      }
+      // 시작일이 있고, 마감일이 시작일보다 이전인 경우 에러
+      if (req.body.startDate && new Date(value) < new Date(req.body.startDate)) {
+        throw new Error('Due date must be after start date');
+      }
+      return true;
+    })
 ];
 
 // 할 일 수정 검증 규칙
@@ -31,21 +47,29 @@ const updateTodoValidationRules = [
     .withMessage('Description must be less than 2000 characters')
     .escape(), // XSS 방지
   body('startDate')
-    .optional()
-    .isISO8601()
-    .withMessage('Start date must be a valid date in ISO 8601 format (YYYY-MM-DD)'),
+    .optional({ nullable: true, checkFalsy: true })
+    .custom((value) => {
+      if (value === null || value === undefined || value === '') return true;
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(value)) {
+        throw new Error('Start date must be in YYYY-MM-DD format');
+      }
+      return true;
+    }),
   body('dueDate')
-    .optional()
-    .isISO8601()
-    .withMessage('Due date must be a valid date in ISO 8601 format (YYYY-MM-DD)')
+    .optional({ nullable: true, checkFalsy: true })
     .custom((value, { req }) => {
+      if (value === null || value === undefined || value === '') return true;
+      const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateRegex.test(value)) {
+        throw new Error('Due date must be in YYYY-MM-DD format');
+      }
       // 시작일이 존재하고, 마감일이 시작일보다 이전인 경우 에러
       if (req.body.startDate && new Date(value) < new Date(req.body.startDate)) {
         throw new Error('Due date must be after start date');
       }
       return true;
-    })
-    .withMessage('Due date must be after start date'),
+    }),
   body('isCompleted')
     .optional()
     .isBoolean()

@@ -72,8 +72,10 @@ router.get('/', getTodosValidationRules, validate, TodoController.getTodos);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
- *         description: 할 일 ID
+ *           type: string
+ *           format: uuid
+ *         description: 할 일 ID (UUID)
+ *         example: 5db72fa5-ae4b-439e-9e18-d7d382fbbee8
  *     responses:
  *       200:
  *         description: 할 일 조회 성공
@@ -134,7 +136,10 @@ router.post('/', createTodoValidationRules, validate, TodoController.createTodo)
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
+ *         description: 할 일 ID (UUID)
+ *         example: 5db72fa5-ae4b-439e-9e18-d7d382fbbee8
  *     requestBody:
  *       required: true
  *       content:
@@ -173,7 +178,10 @@ router.put('/:id', updateTodoValidationRules, validate, TodoController.updateTod
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
+ *         description: 할 일 ID (UUID)
+ *         example: 5db72fa5-ae4b-439e-9e18-d7d382fbbee8
  *     responses:
  *       200:
  *         description: 할 일 삭제 성공
@@ -195,7 +203,10 @@ router.delete('/:id', TodoController.deleteTodo);
  *         name: id
  *         required: true
  *         schema:
- *           type: integer
+ *           type: string
+ *           format: uuid
+ *         description: 할 일 ID (UUID)
+ *         example: 5db72fa5-ae4b-439e-9e18-d7d382fbbee8
  *     responses:
  *       200:
  *         description: 완료 상태 토글 성공

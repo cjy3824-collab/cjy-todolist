@@ -18,14 +18,9 @@ const corsOptions = {
     'Authorization',
     'X-Total-Count',
     'X-Page',
-    'X-Limit'
-  ],
-  exposedHeaders: [
-    'X-Total-Count',
-    'X-Page',
     'X-Limit',
-    'Authorization'
-  ]
+  ],
+  exposedHeaders: ['X-Total-Count', 'X-Page', 'X-Limit', 'Authorization'],
 };
 
 // 개발 환경에서는 모든 도메인 허용 (안전하지 않음 - 실제 배포 시 수정 필요)

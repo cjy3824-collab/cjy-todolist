@@ -62,20 +62,47 @@ export const formatResponseData = (data, options = {}) => {
   return formatSingleItem(data, options);
 };
 
+// PostgreSQL 필드명을 camelCase로 변환하는 매핑
+const fieldNameMapping = {
+  todoid: 'todoId',
+  userid: 'userId',
+  createdat: 'createdAt',
+  updatedat: 'updatedAt',
+  deletedat: 'deletedAt',
+  startdate: 'startDate',
+  duedate: 'dueDate',
+  iscompleted: 'isCompleted',
+  isdeleted: 'isDeleted',
+  ispublicholiday: 'isPublicHoliday',
+};
+
+// snake_case와 PostgreSQL 소문자 필드명을 camelCase로 변환하는 헬퍼 함수
+const toCamelCase = (str) => {
+  // 먼저 매핑 테이블에서 확인
+  if (fieldNameMapping[str.toLowerCase()]) {
+    return fieldNameMapping[str.toLowerCase()];
+  }
+  // snake_case 변환
+  return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+};
+
 // 단일 항목의 응답 포맷
 const formatSingleItem = (item, options = {}) => {
   if (!item) return null;
-  
-  // 응답에서 제외할 필드들
+
+  // 응답에서 제외할 필드들 (camelCase로 변환된 후 비교)
   const excludeFields = options.exclude || ['password', 'deletedAt'];
-  
+
   const formattedItem = {};
-  
+
   for (const [key, value] of Object.entries(item)) {
-    if (!excludeFields.includes(key)) {
-      formattedItem[key] = value;
+    // PostgreSQL 소문자 필드명 또는 snake_case를 camelCase로 변환
+    const camelKey = toCamelCase(key);
+
+    if (!excludeFields.includes(camelKey)) {
+      formattedItem[camelKey] = value;
     }
   }
-  
+
   return formattedItem;
 };

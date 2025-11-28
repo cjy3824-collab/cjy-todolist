@@ -6,35 +6,52 @@ class CalendarService {
   async getCalendarData(userId, startDate, endDate) {
     // 사용자의 할 일 가져오기 (삭제된 할일은 제외)
     const userTodos = await TodoModel.findByUserId(userId, false);
-    
+
     // 지정된 기간에 해당하는 사용자 할 일 필터링
     const filteredUserTodos = userTodos.filter(todo => {
-      const dueDate = new Date(todo.dueDate);
-      return dueDate >= new Date(startDate) && dueDate <= new Date(endDate);
+      // dueDate가 없는 경우 제외
+      if (!todo.duedate) return false;
+
+      const dueDate = new Date(todo.duedate);
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
+      return dueDate >= start && dueDate <= end;
     });
-    
+
     // 지정된 기간에 해당하는 공휴일 가져오기
     const publicHolidays = await TodoModel.findPublicHolidays();
     const filteredHolidays = publicHolidays.filter(holiday => {
-      const dueDate = new Date(holiday.dueDate);
-      return dueDate >= new Date(startDate) && dueDate <= new Date(endDate);
+      if (!holiday.duedate) return false;
+
+      const dueDate = new Date(holiday.duedate);
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+
+      return dueDate >= start && dueDate <= end;
     });
 
     // 날짜별로 그룹화
     const calendarData = {};
-    
+
     // 사용자 할 일 추가
     filteredUserTodos.forEach(todo => {
-      const dateKey = todo.dueDate;
+      if (!todo.duedate) return;
+
+      // YYYY-MM-DD 형식으로 변환
+      const dateKey = new Date(todo.duedate).toISOString().split('T')[0];
       if (!calendarData[dateKey]) {
         calendarData[dateKey] = { todos: [], holidays: [] };
       }
       calendarData[dateKey].todos.push(todo);
     });
-    
+
     // 공휴일 추가
     filteredHolidays.forEach(holiday => {
-      const dateKey = holiday.dueDate;
+      if (!holiday.duedate) return;
+
+      // YYYY-MM-DD 형식으로 변환
+      const dateKey = new Date(holiday.duedate).toISOString().split('T')[0];
       if (!calendarData[dateKey]) {
         calendarData[dateKey] = { todos: [], holidays: [] };
       }

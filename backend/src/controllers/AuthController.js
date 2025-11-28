@@ -23,7 +23,8 @@ class AuthController {
 
   async signOut(req, res, next) {
     try {
-      const result = await AuthService.signOut(req.user.userId, req.body.refreshToken);
+      // refreshToken만으로 로그아웃 처리 (userId는 불필요)
+      const result = await AuthService.signOut(req.body.refreshToken);
       res.status(200).json(result);
     } catch (error) {
       next(error);

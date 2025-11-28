@@ -1,11 +1,11 @@
 // src/models/UserModel.js
 import db from './db.js';
 import BaseModel from './BaseModel.js';
-import { hashPassword } from '../utils/passwordUtils.js';
+import { hashPassword, comparePassword } from '../utils/passwordUtils.js';
 
 class UserModel extends BaseModel {
   constructor() {
-    super('users', 'userId');
+    super('users', 'userid');
   }
 
   async findByUsername(username) {
@@ -21,21 +21,20 @@ class UserModel extends BaseModel {
   }
 
   async findById(id) {
-    const query = 'SELECT * FROM users WHERE userId = $1';
+    const query = 'SELECT * FROM users WHERE userid = $1';
     const { rows } = await db.query(query, [id]);
     return rows[0] || null;
   }
 
   async create(userData) {
     const { username, email, password } = userData;
-    const hashedPassword = await hashPassword(password);
-    
+    // password는 이미 AuthService에서 해싱되어 전달됨
     const query = `
       INSERT INTO users (username, email, password)
       VALUES ($1, $2, $3)
-      RETURNING userId, username, email, createdAt, updatedAt
+      RETURNING userid, username, email, createdat, updatedat
     `;
-    const { rows } = await db.query(query, [username, email, hashedPassword]);
+    const { rows } = await db.query(query, [username, email, password]);
     return rows[0];
   }
 
@@ -48,21 +47,37 @@ class UserModel extends BaseModel {
       query = `
         UPDATE users
         SET email = $1, password = $2, updatedAt = NOW()
-        WHERE userId = $3
-        RETURNING userId, username, email, createdAt, updatedAt
+        WHERE userid = $3
+        RETURNING userid, username, email, createdat, updatedat
       `;
       params = [email, hashedPassword, id];
     } else {
       query = `
         UPDATE users
         SET email = $1, updatedAt = NOW()
-        WHERE userId = $2
-        RETURNING userId, username, email, createdAt, updatedAt
+        WHERE userid = $2
+        RETURNING userid, username, email, createdat, updatedat
       `;
       params = [email, id];
     }
 
     const { rows } = await db.query(query, params);
+    return rows[0];
+  }
+
+  async comparePassword(password, hashedPassword) {
+    return await comparePassword(password, hashedPassword);
+  }
+
+  async updatePassword(id, newPassword) {
+    const hashedPassword = await hashPassword(newPassword);
+    const query = `
+      UPDATE users
+      SET password = $1, updatedat = NOW()
+      WHERE userid = $2
+      RETURNING userid
+    `;
+    const { rows } = await db.query(query, [hashedPassword, id]);
     return rows[0];
   }
 }
