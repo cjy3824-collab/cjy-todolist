@@ -1,5 +1,20 @@
 // src/utils/logger.js
 import winston from 'winston';
+import fs from 'fs';
+import path from 'path';
+
+// Vercel 서버리스 환경 감지
+const isVercel = () => {
+  return process.env.VERCEL === '1';
+};
+
+// 로그 디렉토리 생성 (Vercel이 아닐 때만)
+if (!isVercel()) {
+  const logsDir = path.join(process.cwd(), 'logs');
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir, { recursive: true });
+  }
+}
 
 // 로그 포맷 정의
 const logFormat = winston.format.combine(
@@ -15,19 +30,7 @@ const logger = winston.createLogger({
   format: logFormat,
   defaultMeta: { service: 'todo-api' },
   transports: [
-    // 파일 로그
-    new winston.transports.File({ 
-      filename: 'logs/error.log', 
-      level: 'error',
-      maxsize: 5242880, // 5MB
-      maxFiles: 5
-    }),
-    new winston.transports.File({ 
-      filename: 'logs/combined.log',
-      maxsize: 5242880, // 5MB
-      maxFiles: 5
-    }),
-    // 콘솔 로그
+    // 콘솔 로그 (Vercel 환경에서도 사용 가능)
     new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize(),
@@ -39,13 +42,28 @@ const logger = winston.createLogger({
   ]
 });
 
-// 예외 처리를 위한 핸들러
-logger.exceptions.handle(
-  new winston.transports.File({ filename: 'logs/exceptions.log' })
-);
+// Vercel이 아닌 환경에서는 파일 로그도 추가
+if (!isVercel()) {
+  logger.add(new winston.transports.File({
+    filename: 'logs/error.log',
+    level: 'error',
+    maxsize: 5242880, // 5MB
+    maxFiles: 5
+  }));
+  logger.add(new winston.transports.File({
+    filename: 'logs/combined.log',
+    maxsize: 5242880, // 5MB
+    maxFiles: 5
+  }));
 
-logger.rejections.handle(
-  new winston.transports.File({ filename: 'logs/rejections.log' })
-);
+  // 예외 처리를 위한 핸들러
+  logger.exceptions.handle(
+    new winston.transports.File({ filename: 'logs/exceptions.log' })
+  );
+
+  logger.rejections.handle(
+    new winston.transports.File({ filename: 'logs/rejections.log' })
+  );
+}
 
 export default logger;
